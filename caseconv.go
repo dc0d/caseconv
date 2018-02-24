@@ -11,7 +11,8 @@ import (
 
 //-----------------------------------------------------------------------------
 
-// Convert .
+// Convert converts names between cases, it does not change the upper/lower cases
+// except for the first rune in camel and pascal cases.
 func Convert(name string, from, to Case, check ...bool) (string, error) {
 	if !from.isValid() || !to.isValid() {
 		return "", errors.Cause(errors.WithMessage(ErrInvalidCase, "from or to is invalid"))
@@ -188,7 +189,7 @@ func changeHead(s string, lower ...bool) string {
 
 //-----------------------------------------------------------------------------
 
-// Case .
+// Case represents the X-case (snake, kebab, camel, pascal)
 type Case int
 
 func (c Case) String() string {

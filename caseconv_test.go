@@ -2,6 +2,7 @@ package caseconv
 
 import (
 	"bufio"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -248,4 +249,31 @@ func Test_Convert(t *testing.T) {
 			t.Log(v.str)
 		}
 	}
+}
+
+func ExampleConvert() {
+	name := "SomePascalCaseName"
+
+	s, err := Convert(name, Pascal, Snake)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(s)
+
+	s, err = Convert(name, Pascal, Kebab)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(s)
+
+	s, err = Convert(name, Pascal, Camel)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(s)
+
+	// Output:
+	// Some_Pascal_Case_Name
+	// Some-Pascal-Case-Name
+	// somePascalCaseName
 }
