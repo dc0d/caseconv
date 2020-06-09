@@ -40,7 +40,6 @@ func chunk(str string) []string {
 	buffer := parts
 	parts = make([]string, len(buffer))
 	for i, part := range buffer {
-
 		parts[i] = strings.ToLower(part)
 	}
 
