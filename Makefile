@@ -1,9 +1,8 @@
 .PHONY: test
 test:
 	clear
-	go test -count=1 -timeout 10s -p 1 -v ./...
+	go test -count=1 -timeout 10s -coverprofile=./cover/all-profile.out -covermode=set -coverpkg=./... ./...; \
+	go tool cover -html=./cover/all-profile.out -o ./cover/all-coverage.html
 
-test_infrastructure_cover:
-	clear
-	go test -count=1 -timeout 10s -p 1 -coverprofile=./cover/infrastructure-profile.out -covermode=atomic ./infrastructure
-	go tool cover -html=./cover/infrastructure-profile.out -o ./cover/infrastructure-coverage.html
+lint:
+	golangci-lint run ./...
