@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/dc0d/caseconv?status.svg)](https://godoc.org/github.com/dc0d/caseconv)
+[![GoDoc](https://godoc.org/github.com/dc0d/caseconv?status.svg)](https://pkg.go.dev/github.com/dc0d/caseconv?tab=doc)
 
 # caseconv
 snake, kebab, camel, pascal case conversion
