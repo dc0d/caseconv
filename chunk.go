@@ -12,8 +12,13 @@ func chunk(str string) []string {
 
 	parts = chunkBy(str, func(r, next rune) (split, drop bool) {
 		defer func() { lastRune = r }()
+		var (
+			br    = breakRune(r)
+			bnext = breakRune(next)
+			blast = breakRune(lastRune)
+		)
 
-		if r == '_' || r == ' ' || r == '.' || r == '/' || r == '"' {
+		if br.isSplitter() {
 			return true, true
 		}
 
@@ -22,15 +27,15 @@ func chunk(str string) []string {
 		}
 
 		if next != 0 {
-			if 'A' <= r && r <= 'Z' &&
-				'A' <= lastRune && lastRune <= 'Z' &&
-				'a' <= next && next <= 'z' {
+			if br.isUppercase() &&
+				blast.isUppercase() &&
+				bnext.isLowercase() {
 				return true, false
 			}
 		}
 
-		if (('a' <= lastRune && lastRune <= 'z') || ('0' <= lastRune && lastRune <= '9')) &&
-			'A' <= r && r <= 'Z' {
+		if (blast.isLowercase() || blast.isNumber()) &&
+			br.isUppercase() {
 			return true, false
 		}
 
@@ -44,6 +49,15 @@ func chunk(str string) []string {
 	}
 
 	return parts
+}
+
+type breakRune rune
+
+func (br breakRune) isLowercase() bool { return 'a' <= br && br <= 'z' }
+func (br breakRune) isNumber() bool    { return '0' <= br && br <= '9' }
+func (br breakRune) isUppercase() bool { return 'A' <= br && br <= 'Z' }
+func (br breakRune) isSplitter() bool {
+	return br == '_' || br == ' ' || br == '.' || br == '/' || br == '"'
 }
 
 func chunkBy(str string, chunkFn func(r, next rune) (split, drop bool)) (result []string) {
