@@ -6,41 +6,11 @@ import (
 
 func chunk(str string) []string {
 	var (
-		lastRune rune
-		parts    []string
+		cp    chunkerPredicate
+		parts []string
 	)
 
-	parts = chunkBy(str, func(r, next rune) (split, drop bool) {
-		defer func() { lastRune = r }()
-		var (
-			br    = breakRune(r)
-			bnext = breakRune(next)
-			blast = breakRune(lastRune)
-		)
-
-		if br.isSplitter() {
-			return true, true
-		}
-
-		if lastRune == 0 {
-			return false, false
-		}
-
-		if next != 0 {
-			if br.isUppercase() &&
-				blast.isUppercase() &&
-				bnext.isLowercase() {
-				return true, false
-			}
-		}
-
-		if (blast.isLowercase() || blast.isNumber()) &&
-			br.isUppercase() {
-			return true, false
-		}
-
-		return false, false
-	})
+	parts = chunkBy(str, cp.run)
 
 	buffer := parts
 	parts = make([]string, len(buffer))
@@ -49,6 +19,34 @@ func chunk(str string) []string {
 	}
 
 	return parts
+}
+
+type chunkerPredicate struct{ lastRune rune }
+
+func (cp *chunkerPredicate) run(r, next rune) (split, drop bool) {
+	defer func() { cp.lastRune = r }()
+
+	var (
+		br    = breakRune(r)
+		bnext = breakRune(next)
+		blast = breakRune(cp.lastRune)
+	)
+
+	switch {
+	case br.isSplitter():
+		split, drop = true, true
+	case cp.lastRune == 0:
+		return
+	case next != 0 && br.isUppercase() &&
+		blast.isUppercase() &&
+		bnext.isLowercase():
+		fallthrough
+	case (blast.isLowercase() || blast.isNumber()) &&
+		br.isUppercase():
+		split = true
+	}
+
+	return
 }
 
 type breakRune rune
