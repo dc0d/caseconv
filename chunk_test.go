@@ -23,6 +23,7 @@ func Test_chunk(t *testing.T) {
 			// single words
 			{"test", "test"},
 			{"TEST", "test"},
+			{"PIPPI LÅNGSTRUMP", "pippi långstrump"},
 
 			// camel case
 			{"testString", "test string"},

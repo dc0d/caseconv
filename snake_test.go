@@ -24,6 +24,7 @@ func Test_ToSnake(t *testing.T) {
 			{"test string", "test_string"},
 			{"Test String", "test_string"},
 			{"TestV2", "test_v2"},
+			{"PippiLÅNGSTRUMP", "pippi_långstrump"},
 		}
 	}
 
