@@ -24,6 +24,7 @@ func Test_ToKebab(t *testing.T) {
 			{"test string", "test-string"},
 			{"Test String", "test-string"},
 			{"TestV2", "test-v2"},
+			{"PippiLÅNGSTRUMP", "pippi-långstrump"},
 		}
 	}
 

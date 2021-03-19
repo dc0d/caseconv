@@ -26,6 +26,8 @@ func Test_ToPascal(t *testing.T) {
 			{"TestV2", "TestV2"},
 			{"version 1.2.10", "Version1210"},
 			{"version 1.21.0", "Version1210"},
+			{"LÅNGSTRUMP", "Långstrump"},
+			{"PippiLÅNGSTRUMP", "PippiLångstrump"},
 		}
 	}
 

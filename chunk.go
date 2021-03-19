@@ -63,10 +63,12 @@ func chunkBy(str string, chunkFn func(r, next rune) (split, drop bool)) (result 
 		lastChunk []rune
 	)
 
-	for i, r := range str {
+	runes := []rune(str)
+
+	for i, r := range runes {
 		var next rune
-		if i < len(str)-1 {
-			next = []rune(str)[i+1]
+		if i < len(runes)-1 {
+			next = []rune(runes)[i+1]
 		}
 		split, drop := chunkFn(r, next)
 		if !split && !drop {
