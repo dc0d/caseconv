@@ -39,10 +39,9 @@ func (cp *chunkerPredicate) run(r, next rune) (split, drop bool) {
 		return
 	case next != 0 && br.isUppercase() &&
 		blast.isUppercase() &&
-		bnext.isLowercase():
-		fallthrough
-	case (blast.isLowercase() || blast.isNumber()) &&
-		br.isUppercase():
+		bnext.isLowercase(),
+		(blast.isLowercase() || blast.isNumber()) &&
+			br.isUppercase():
 		split = true
 	}
 
@@ -51,16 +50,17 @@ func (cp *chunkerPredicate) run(r, next rune) (split, drop bool) {
 
 type breakRune rune
 
-func (br breakRune) isLowercase() bool { return 'a' <= br && br <= 'z' }
-func (br breakRune) isNumber() bool    { return '0' <= br && br <= '9' }
-func (br breakRune) isUppercase() bool { return 'A' <= br && br <= 'Z' }
+func (br breakRune) isLowercase() bool { return br >= 'a' && br <= 'z' }
+func (br breakRune) isNumber() bool    { return br >= '0' && br <= '9' }
+func (br breakRune) isUppercase() bool { return br >= 'A' && br <= 'Z' }
 func (br breakRune) isSplitter() bool {
 	return br == '_' || br == ' ' || br == '.' || br == '/' || br == '"'
 }
 
-func chunkBy(str string, chunkFn func(r, next rune) (split, drop bool)) (result []string) {
+func chunkBy(str string, chunkFn func(r, next rune) (split, drop bool)) []string {
 	var (
 		lastChunk []rune
+		result    []string
 	)
 
 	runes := []rune(str)
@@ -68,7 +68,7 @@ func chunkBy(str string, chunkFn func(r, next rune) (split, drop bool)) (result 
 	for i, r := range runes {
 		var next rune
 		if i < len(runes)-1 {
-			next = []rune(runes)[i+1]
+			next = runes[i+1]
 		}
 		split, drop := chunkFn(r, next)
 		if !split && !drop {
@@ -91,5 +91,5 @@ func chunkBy(str string, chunkFn func(r, next rune) (split, drop bool)) (result 
 		result = append(result, string(lastChunk))
 	}
 
-	return
+	return result
 }

@@ -9,26 +9,16 @@ import (
 )
 
 func Test_ToSnake(t *testing.T) {
-	var (
-		assert = assert.New(t)
-	)
-
-	var (
-		testCases []testCase
-	)
-
-	{
-		testCases = []testCase{
-			{"", ""},
-			{"test", "test"},
-			{"test string", "test_string"},
-			{"Test String", "test_string"},
-			{"TestV2", "test_v2"},
-			{"PippiLÅNGSTRUMP", "pippi_långstrump"},
-		}
+	testCases := []testCase{
+		{"", ""},
+		{"test", "test"},
+		{"test string", "test_string"},
+		{"Test String", "test_string"},
+		{"TestV2", "test_v2"},
+		{"PippiLÅNGSTRUMP", "pippi_långstrump"},
 	}
 
 	for _, tc := range testCases {
-		assert.Equal(tc.expectedOutput, caseconv.ToSnake(tc.input))
+		assert.Equal(t, tc.expectedOutput, caseconv.ToSnake(tc.input))
 	}
 }
