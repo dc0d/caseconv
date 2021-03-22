@@ -9,30 +9,20 @@ import (
 )
 
 func Test_ToPascal(t *testing.T) {
-	var (
-		assert = assert.New(t)
-	)
-
-	var (
-		testCases []testCase
-	)
-
-	{
-		testCases = []testCase{
-			{"", ""},
-			{"test", "Test"},
-			{"test string", "TestString"},
-			{"Test String", "TestString"},
-			{"TestV2", "TestV2"},
-			{"version 1.2.10", "Version1210"},
-			{"version 1.21.0", "Version1210"},
-			{"LÅNGSTRUMP", "Långstrump"},
-			{"PippiLÅNGSTRUMP", "PippiLångstrump"},
-		}
+	testCases := []testCase{
+		{"", ""},
+		{"test", "Test"},
+		{"test string", "TestString"},
+		{"Test String", "TestString"},
+		{"TestV2", "TestV2"},
+		{"version 1.2.10", "Version1210"},
+		{"version 1.21.0", "Version1210"},
+		{"LÅNGSTRUMP", "Långstrump"},
+		{"PippiLÅNGSTRUMP", "PippiLångstrump"},
 	}
 
 	for _, tc := range testCases {
-		assert.Equal(tc.expectedOutput, caseconv.ToPascal(tc.input))
+		assert.Equal(t, tc.expectedOutput, caseconv.ToPascal(tc.input))
 	}
 }
 
