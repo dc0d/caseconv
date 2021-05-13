@@ -60,6 +60,7 @@ func Test_chunk(t *testing.T) {
 		// https://github.com/blakeembrey/change-case/issues/21
 		{"amazon s3 data", "amazon s3 data"},
 		{"foo_13_bar", "foo 13 bar"},
+		{"Pippil ÅNGSTRUMP", "pippil ångstrump"},
 	}
 
 	for _, tc := range testCases {

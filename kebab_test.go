@@ -16,6 +16,7 @@ func Test_ToKebab(t *testing.T) {
 		{"Test String", "test-string"},
 		{"TestV2", "test-v2"},
 		{"PippiLÅNGSTRUMP", "pippi-långstrump"},
+		{"PippilÅNGSTRUMP", "pippil-ångstrump"},
 	}
 
 	for _, tc := range testCases {

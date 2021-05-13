@@ -20,6 +20,7 @@ func Test_ToCamel(t *testing.T) {
 		{"version 1.21.0", "version1210"},
 		{"version 1.2.10", "version1210"},
 		{"PippiLÅNGSTRUMP", "pippiLångstrump"},
+		{"PippilÅNGSTRUMP", "pippilÅngstrump"},
 	}
 
 	for _, tc := range testCases {

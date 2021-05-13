@@ -1,7 +1,7 @@
 .PHONY: test
 test:
 	clear
-	go test -count=1 -timeout 30s -p 1 -v -cover ./...
+	go test -count=1 -timeout 30s -cover ./...
 
 .PHONY: cover
 cover:
