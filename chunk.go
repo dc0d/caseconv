@@ -2,6 +2,7 @@ package caseconv
 
 import (
 	"strings"
+	"unicode"
 )
 
 func chunk(str string) []string {
@@ -50,9 +51,9 @@ func (cp *chunkerPredicate) run(r, next rune) (split, drop bool) {
 
 type breakRune rune
 
-func (br breakRune) isLowercase() bool { return br >= 'a' && br <= 'z' }
-func (br breakRune) isNumber() bool    { return br >= '0' && br <= '9' }
-func (br breakRune) isUppercase() bool { return br >= 'A' && br <= 'Z' }
+func (br breakRune) isLowercase() bool { return unicode.IsLower(rune(br)) }
+func (br breakRune) isNumber() bool    { return unicode.IsDigit(rune(br)) }
+func (br breakRune) isUppercase() bool { return unicode.IsUpper(rune(br)) }
 func (br breakRune) isSplitter() bool {
 	return br == '_' || br == ' ' || br == '.' || br == '/' || br == '"'
 }

@@ -19,6 +19,7 @@ func Test_ToPascal(t *testing.T) {
 		{"version 1.21.0", "Version1210"},
 		{"LÅNGSTRUMP", "Långstrump"},
 		{"PippiLÅNGSTRUMP", "PippiLångstrump"},
+		{"PippilÅNGSTRUMP", "PippilÅngstrump"},
 	}
 
 	for _, tc := range testCases {

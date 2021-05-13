@@ -16,6 +16,7 @@ func Test_ToSnake(t *testing.T) {
 		{"Test String", "test_string"},
 		{"TestV2", "test_v2"},
 		{"PippiLÅNGSTRUMP", "pippi_långstrump"},
+		{"PippilÅNGSTRUMP", "pippil_ångstrump"},
 	}
 
 	for _, tc := range testCases {
